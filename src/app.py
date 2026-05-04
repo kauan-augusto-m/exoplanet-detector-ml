@@ -6,12 +6,15 @@ import os
 diretorio_atual = os.path.dirname(__file__)
 caminho_modelo = os.path.join(diretorio_atual, '..', 'models', 'modelo_exoplanetas.pkl')
 
-try:
-    modelo = joblib.load(caminho_modelo)
-except FileNotFoundError:
-    st.error("Modelo não encontrado. Rode o modelo.py primeiro!")
-    st.stop()
+@st.cache_resource
+def carregar_modelo():
+    if not os.path.exists(caminho_modelo):
+        st.warning("Modelo não encontrado. Treinando agora, aguarde...")
+        import subprocess
+        subprocess.run(["python", os.path.join(diretorio_atual, "modelo.py")])
+    return joblib.load(caminho_modelo)
 
+modelo = carregar_modelo()
 st.title("Detector de Exoplanetas")
 st.write("Digite as características da estrela para saber se possui um planeta.")
 
