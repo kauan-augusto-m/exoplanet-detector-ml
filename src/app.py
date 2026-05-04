@@ -18,14 +18,26 @@ modelo = carregar_modelo()
 st.title("Detector de Exoplanetas")
 st.write("Digite as características da estrela para saber se possui um planeta.")
 
-periodo = st.number_input("Período orbital (dias)", value=30.0)
-raio = st.number_input("Raio do planeta (raios terrestres)", value=2.0)
-profundidade_queda = st.number_input("Profundidade de queda", value=500.0)
-duracao_transito = st.number_input("Duracao do transito", value= 3.5)
-qualidade_sinal = st.number_input("qualidade do sinal", value= 25.0)
-temp_estrela = st.number_input("temperatura da estrela", value= 5800.0)
-gravidade_estrela = st.number_input("Gravidade da estrela", value=4.4)
-raio_estrela = st.number_input("raio da estrela", value= 1.0)
+periodo = st.number_input("Período orbital (dias)", value=30.0,help="Tempo que o planeta leva para dar uma volta completa ao redor da estrela")
+raio = st.number_input(
+    "Raio do Planeta (raios terrestres)",
+    value=2.0,
+    help="Tamanho do planeta em comparação com a Terra. A Terra = 1.0"
+)
+profundidade_queda = st.number_input("Profundidade do Trânsito (ppm)", value=500.0)
+duracao_transito = st.number_input("Duração do Trânsito (horas)", value= 3.5)
+qualidade_sinal = st.number_input("Qualidade do Sinal (SNR)", value= 25.0)
+temp_estrela = st.number_input(
+    "Temperatura da Estrela (K)",
+    value=5800.0,
+    help="Temperatura superficial da estrela em Kelvin. O Sol tem ~5778 K"
+)
+gravidade_estrela = st.number_input(
+    "Gravidade da Estrela (log g)",
+    value=4.4,
+    help="Gravidade superficial da estrela em escala logarítmica. O Sol tem log g ≈ 4.44"
+)
+raio_estrela = st.number_input("Raio da Estrela (R☉)", value= 1.0)
 
 if st.button("Analisar estrela"):
     nova_estrela = pd.DataFrame([{
