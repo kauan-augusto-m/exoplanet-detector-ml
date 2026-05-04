@@ -2,6 +2,7 @@ import joblib
 import pandas as pd
 import streamlit as st
 import os
+import plotly.graph_objects as go
 
 diretorio_atual = os.path.dirname(__file__)
 caminho_modelo = os.path.join(diretorio_atual, '..', 'models', 'modelo_exoplanetas.pkl')
@@ -95,5 +96,23 @@ if st.button("Analisar estrela"):
     else:
         st.error(f"FALSO POSITIVO")
 
-    for i, classe in enumerate(classes):
-        st.write(f"Confiança para {classe}: {probabilidade[0][i]:.2%}")
+    # Gráfico de probabilidade
+    cores = ['#2ecc71' if c == 'CONFIRMED' else '#e74c3c' for c in classes]
+    
+    fig = go.Figure(go.Bar(
+        x=[probabilidade[0][i] * 100 for i in range(len(classes))],
+        y=[c.replace('_', ' ') for c in classes],
+        orientation='h',
+        marker_color=cores,
+        text=[f"{probabilidade[0][i]:.1%}" for i in range(len(classes))],
+        textposition='auto'
+    ))
+    
+    fig.update_layout(
+        title="Confiança do Modelo",
+        xaxis_title="Probabilidade (%)",
+        xaxis=dict(range=[0, 100]),
+        height=250
+    )
+    
+    st.plotly_chart(fig, use_container_width=True)
