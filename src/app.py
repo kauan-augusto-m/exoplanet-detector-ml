@@ -75,6 +75,17 @@ raio_estrela = st.number_input(
     value=1.0,
     help="Tamanho da estrela em comparação com o Sol. O Sol = 1.0"
 )
+# Define as características (adiciona isso antes do if st.button)
+caracteristicas = [
+    'koi_period', 'koi_depth', 'koi_duration', 'koi_prad',
+    'koi_model_snr', 'koi_steff', 'koi_slogg', 'koi_srad'
+]
+
+nomes_legíveis = [
+    'Período Orbital', 'Profundidade', 'Duração', 'Raio do Planeta',
+    'Qualidade Sinal', 'Temperatura', 'Gravidade', 'Raio da Estrela'
+]
+
 if st.button("Analisar estrela"):
     nova_estrela = pd.DataFrame([{
         'koi_period': periodo,
@@ -92,13 +103,11 @@ if st.button("Analisar estrela"):
     classes = modelo.classes_
 
     if previsao[0] == 'CONFIRMED':
-        st.success(f"PLANETA DETECTADO!")
+        st.success("PLANETA DETECTADO!")
     else:
-        st.error(f"FALSO POSITIVO")
+        st.error("FALSO POSITIVO")
 
-    # Gráfico de probabilidade
     cores = ['#2ecc71' if c == 'CONFIRMED' else '#e74c3c' for c in classes]
-    
     fig = go.Figure(go.Bar(
         x=[probabilidade[0][i] * 100 for i in range(len(classes))],
         y=[c.replace('_', ' ') for c in classes],
@@ -107,12 +116,26 @@ if st.button("Analisar estrela"):
         text=[f"{probabilidade[0][i]:.1%}" for i in range(len(classes))],
         textposition='auto'
     ))
-    
     fig.update_layout(
         title="Confiança do Modelo",
         xaxis_title="Probabilidade (%)",
         xaxis=dict(range=[0, 100]),
         height=250
     )
-    
     st.plotly_chart(fig, use_container_width=True)
+
+    importancias = pd.Series(
+        modelo.feature_importances_, index=nomes_legíveis
+    ).sort_values(ascending=True)
+    fig2 = go.Figure(go.Bar(
+        x=importancias.values,
+        y=importancias.index,
+        orientation='h',
+        marker_color='#3498db'
+    ))
+    fig2.update_layout(
+        title="Por que o modelo tomou essa decisão?",
+        xaxis_title="Importância",
+        height=350
+    )
+    st.plotly_chart(fig2, use_container_width=True)
