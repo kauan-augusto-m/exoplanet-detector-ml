@@ -73,9 +73,19 @@ O modelo Random Forest desenvolvido foi capaz de:
 
 ## ⚠️ Limitações e Melhorias Futuras
 
-*   **Limitações:** O modelo atual utiliza dados já processados (não curvas de luz brutas), depende da qualidade do dataset e a aplicação do SMOTE pode introduzir viés se não for cuidadosamente controlada.
-*   **Melhorias Futuras:** Explorar o uso direto de curvas de luz, aplicar técnicas de Deep Learning, implementar validação cruzada mais robusta, e aprimorar a interface do Streamlit com visualizações mais ricas e contextualização para o usuário.
+**Limitações:**
+- O modelo utiliza dados já processados, não curvas de luz brutas
+- Depende da qualidade do dataset da NASA
+- SMOTE pode introduzir viés se não controlado
 
+**Melhorias Futuras:**
+- Explorar uso direto de curvas de luz
+- Aplicar Deep Learning para detecção mais precisa
+- Implementar validação cruzada (k-fold) mais robusta
+
+## 📸 Interface
+
+![Interface do Detector de Exoplanetas]("C:\Users\marti\OneDrive\Imagens\Screenshots\Captura de tela 2026-05-04 160118.png")
 ## 💻 Como Executar Localmente
 
 Para rodar o projeto em sua máquina:
