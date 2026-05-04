@@ -85,7 +85,7 @@ O modelo Random Forest desenvolvido foi capaz de:
 
 ## 📸 Interface
 
-![Interface do Detector de Exoplanetas]("C:\Users\marti\OneDrive\Imagens\Screenshots\Captura de tela 2026-05-04 160118.png")
+![Interface do Detector de Exoplanetas](docs/screenshot.png)
 ## 💻 Como Executar Localmente
 
 Para rodar o projeto em sua máquina:
