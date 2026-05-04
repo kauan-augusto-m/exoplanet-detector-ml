@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report
 import joblib
+import os
 
 # 1. BAIXAR DADOS
 url = "https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=cumulative&format=csv"
@@ -83,5 +84,11 @@ print(planetas_previstos[['kepoi_name', 'koi_period', 'koi_prad', 'probabilidade
 
 
 # Salva o modelo em disco
-joblib.dump(modelo, 'modelo_exoplanetas.pkl')
-print("Modelo salvo em modelo_exoplanetas.pkl")
+
+
+caminho_models = os.path.join(os.path.dirname(__file__), '..', 'models')
+caminho_modelo = os.path.join(caminho_models, 'modelo_exoplanetas.pkl')
+
+joblib.dump(modelo, caminho_modelo)
+
+print(f"Modelo salvo em {caminho_modelo}")

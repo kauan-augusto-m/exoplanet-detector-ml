@@ -115,6 +115,11 @@ python modelo.py
 ```bash
 python prever.py
 ```
+### 5. Interface web
+
+```bash
+streamlit run src/app.py
+```
 
 ---
 
@@ -142,7 +147,7 @@ O modelo Random Forest conseguiu:
 * Uso de curvas de luz diretamente
 * Aplicação de Deep Learning
 * Detecção automática de trânsitos
-* Interface visual interativa
+* Publicar interface online (Streamlit Cloud)
 * Cross-validation mais robusta
 
 ---
