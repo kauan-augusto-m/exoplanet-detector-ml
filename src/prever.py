@@ -2,7 +2,7 @@ import joblib
 import pandas as pd
 
 # Carrega o modelo já treinado
-modelo = joblib.load('modelo_exoplanetas.pkl')
+modelo = joblib.load('../models/modelo_exoplanetas.pkl')
 
 # Exemplo: características de uma estrela nova
 nova_estrela = pd.DataFrame([{
