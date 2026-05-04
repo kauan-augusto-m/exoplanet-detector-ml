@@ -1,4 +1,5 @@
 # 🪐 Exoplanet Detector with Machine Learning
+🌐 **[Acesse a aplicação online aqui](https://exoplanet-detector-ml-nzvm3wleuuvcm8y8mmsfka.streamlit.app)**
 
 Projeto de Machine Learning que utiliza dados reais da NASA para identificar exoplanetas com base em características observadas pelo telescópio Kepler.
 
