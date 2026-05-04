@@ -18,27 +18,62 @@ modelo = carregar_modelo()
 st.title("Detector de Exoplanetas")
 st.write("Digite as características da estrela para saber se possui um planeta.")
 
-periodo = st.number_input("Período orbital (dias)", value=30.0,help="Tempo que o planeta leva para dar uma volta completa ao redor da estrela")
+periodo = st.number_input(
+    "Período Orbital (dias)",
+    min_value=0.2,
+    max_value=500.0,
+    value=30.0,
+    help="Tempo que o planeta leva para dar uma volta completa ao redor da estrela"
+)
 raio = st.number_input(
     "Raio do Planeta (raios terrestres)",
+    min_value=0.5,
+    max_value=100.0,
     value=2.0,
     help="Tamanho do planeta em comparação com a Terra. A Terra = 1.0"
 )
-profundidade_queda = st.number_input("Profundidade do Trânsito (ppm)", value=500.0)
-duracao_transito = st.number_input("Duração do Trânsito (horas)", value= 3.5)
-qualidade_sinal = st.number_input("Qualidade do Sinal (SNR)", value= 25.0)
+profundidade_queda = st.number_input(
+    "Profundidade do Trânsito (ppm)",
+    min_value=0.0,
+    max_value=100000.0,
+    value=500.0,
+    help="Queda de brilho da estrela durante o trânsito em partes por milhão"
+)
+duracao_transito = st.number_input(
+    "Duração do Trânsito (horas)",
+    min_value=0.05,
+    max_value=50.0,
+    value=3.5,
+    help="Tempo que o planeta leva para atravessar o disco da estrela"
+)
+qualidade_sinal = st.number_input(
+    "Qualidade do Sinal (SNR)",
+    min_value=0.0,
+    max_value=500.0,
+    value=25.0,
+    help="Relação sinal-ruído. Quanto maior, mais confiável é a detecção"
+)
 temp_estrela = st.number_input(
     "Temperatura da Estrela (K)",
+    min_value=2500.0,
+    max_value=16000.0,
     value=5800.0,
     help="Temperatura superficial da estrela em Kelvin. O Sol tem ~5778 K"
 )
 gravidade_estrela = st.number_input(
     "Gravidade da Estrela (log g)",
+    min_value=0.0,
+    max_value=5.5,
     value=4.4,
     help="Gravidade superficial da estrela em escala logarítmica. O Sol tem log g ≈ 4.44"
 )
-raio_estrela = st.number_input("Raio da Estrela (R☉)", value= 1.0)
-
+raio_estrela = st.number_input(
+    "Raio da Estrela (R☉)",
+    min_value=0.1,
+    max_value=20.0,
+    value=1.0,
+    help="Tamanho da estrela em comparação com o Sol. O Sol = 1.0"
+)
 if st.button("Analisar estrela"):
     nova_estrela = pd.DataFrame([{
         'koi_period': periodo,
