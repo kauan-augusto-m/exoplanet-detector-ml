@@ -33,18 +33,17 @@ y = df_treino['koi_disposition'][X.index]
 print(f"\nApós limpeza: {len(X)} objetos")
 print(y.value_counts())
 
-# 3. BALANCEAR COM SMOTE
-smote = SMOTE(random_state=42)
-X_bal, y_bal = smote.fit_resample(X, y)
-print(f"\nApós SMOTE:")
-print(pd.Series(y_bal).value_counts())
-
-# 4. DIVIDIR TREINO E TESTE
+# 3. DIVIDIR TREINO E TESTE PRIMEIRO
 X_treino, X_teste, y_treino, y_teste = train_test_split(
-    X_bal, y_bal, test_size=0.2, random_state=42
+    X, y, test_size=0.2, random_state=42
 )
 print(f"\nTreino: {len(X_treino)} | Teste: {len(X_teste)}")
 
+# 4. BALANCEAR COM SMOTE APENAS NO TREINO
+smote = SMOTE(random_state=42)
+X_treino, y_treino = smote.fit_resample(X_treino, y_treino)
+print(f"\nApós SMOTE no treino:")
+print(pd.Series(y_treino).value_counts())
 # 5. TREINAR MODELO
 modelo = RandomForestClassifier(n_estimators=100, random_state=42)
 modelo.fit(X_treino, y_treino)
